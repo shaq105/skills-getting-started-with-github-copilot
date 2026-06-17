@@ -20,10 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
         activityCard.className = "activity-card";
 
         const spotsLeft = details.max_participants - details.participants.length;
+        const escapeHtml = (value) =>
+          String(value).replace(/[&<>"']/g, (ch) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[ch]
+          );
+
         const participantsList =
           details.participants.length > 0
             ? `<ul class="participants-list">${details.participants
-                .map((participant) => `<li>${participant}</li>`)
+                .map((participant) => `<li>${escapeHtml(participant)}</li>`)
                 .join("")}</ul>`
             : '<p class="participants-empty">No participants yet. Be the first to join!</p>';
 
