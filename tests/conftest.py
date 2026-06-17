@@ -8,7 +8,7 @@ import src.app as app_module
 
 @pytest.fixture(autouse=True)
 def reset_activities_state():
-    """Reset in-memory activities before each test to avoid state leakage."""
+    """Restore in-memory activities after each test to avoid state leakage."""
     original_activities = copy.deepcopy(app_module.activities)
     yield
     app_module.activities.clear()
